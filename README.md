@@ -19,7 +19,7 @@ Requirements:
   * https://kinsta.com/blog/javascript-libraries/
   * https://www.softwaretestinghelp.com/best-javascript-visualization-libraries/
   * https://www.monterail.com/blog/javascript-libraries-data-visualization
-* [ ] Your project must be powered by a dataset with at least 100 records.( if using 2022 set)
+* [X] Your project must be powered by a dataset with at least 100 records.( if using 2022 set)
 * [ ] Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).*(could do weather/road conditions with a drop down menu to view each condition, Time of the day?)*
 * [ ] Your final visualization should ideally include at least three views.
 
