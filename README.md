@@ -108,9 +108,7 @@ We merged the crash data and the county data together in order to fill in the mi
 
 ### Loading
 
-We then loaded this data into a SQLite database `<crash_data>` using SQLAlchemy, storing the data in a table called `<crashes>`.
-
-We also completed some queries to explore the dataset and get an idea of visualizations.
+We then loaded this data into a SQLite database `<crash_data>` using SQLAlchemy, storing the data in a table called `<crashes>`. We also completed some queries to explore the dataset and get an idea of possible visualizations.
 
 ### Flask API
 
@@ -120,4 +118,4 @@ A Python Flask API was developed to create a data source for the front-end visua
 
 ### JavaScript HTML/CSS
 
-We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data.
+*We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data.*
