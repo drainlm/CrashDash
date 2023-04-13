@@ -118,4 +118,4 @@ A Python Flask API was developed to create a data source for the front-end visua
 
 ### JavaScript HTML/CSS
 
-*We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data.*
+*We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data... including a drop-down menu to select X, the ability to filter based on some values ()crash severity, speed limit, day of week), and a map zoom feature*
