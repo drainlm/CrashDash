@@ -7,6 +7,9 @@ from sqlalchemy import create_engine, func
 import datetime as dt
 from flask import Flask, jsonify
 import pandas as pd
+from flask_cors import CORS
+
+
 
 
 #################################################
@@ -30,6 +33,7 @@ c = conn.cursor()
 #################################################
 app = Flask(__name__)
 
+CORS(app) 
 
 #################################################
 # Flask Routes
