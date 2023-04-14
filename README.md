@@ -18,7 +18,7 @@ Requirements:
 
 * [X] Your project should include at least one JS library that we did not cover.
 
-  * [Node.js](https://www.sqlitetutorial.net/sqlite-nodejs/) and/or [Chart.js](https://www.chartjs.org/docs/latest/charts/doughnut.html)
+  * [Chart.js](https://www.chartjs.org/docs/latest/charts/doughnut.html)
 * [X] Your project must be powered by a dataset with at least 100 records.( if using 2022 set)
 * [ ] Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).
 * [ ] Your final visualization should ideally include at least three views.
@@ -43,7 +43,6 @@ Requirements:
 * [X] ~~SQLite Database~~
 * [X] ~~Demo Visualizations~~
 * [X] ~~Create Python Flask-Powered API~~
-* [ ] [Node.js](https://www.sqlitetutorial.net/sqlite-nodejs/) or some way of linking API to JS (4/13)
 * [ ] HTML/CSS JavaScript with Interactive Visualizations (4/13-4/17)
 * [ ] Testing (4/17-4/19)
 * [ ] Slide Deck, ReadMe Documentation, Practice (4/19)
