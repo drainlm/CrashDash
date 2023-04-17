@@ -1,7 +1,7 @@
 // Creating the map object
 let myMap = L.map("map", {
   center: [31.936896, -98.723669],
-  zoom: 5,
+  zoom: 6,
 });
 
 // Create an empty layer group for the choropleth layer
@@ -12,8 +12,8 @@ const markerClusterLayerGroup = L.layerGroup().addTo(myMap);
 
    // Create an object with the layer groups
    const overlayMaps = {
-    "Choropleth Layer": choroplethLayerGroup,
-    "Marker Cluster Layer": markerClusterLayerGroup,
+    "Accidents By County": choroplethLayerGroup,
+    "Fatal/Serious Injury Crash Markers": markerClusterLayerGroup,
   };
 
   // Add a layer control to the map
@@ -69,6 +69,7 @@ d3.json(geoCrashData).then(function (crashData) {
         "Crash Day of Week: " + feature.properties['Day of Week'] + "<br />" +
         "Crash School Bus Flag: " + feature.properties['School Bus Flag'] + "<br />" +
         "Crash Speed Limit: " + feature.properties['Speed Limit'] + "<br />" +
+        "Contributing Factor: " + feature.properties['Contributing Factor 1'] + "<br />" +
         "Crash Vehicle Defect: " + feature.properties['Vehicle Defect 1'] + "<br />" +
         "Crash Possible Vehicle Defect: " + feature.properties['Possible Vehicle Defect 1'] + "<br />" +
         "Crash Severity: " + feature.properties['Crash Severity']);
@@ -149,9 +150,9 @@ d3.json(geoData).then(function (data) {
         layer.bindPopup(
           "<strong>" +
             feature.properties.CNTY_NM +
-            "</strong><br /><br />Commercial Vehicle Accidents with Fatal Injuries: " +
+            "</strong><br /><br />2022 Commercial Vehicle Accidents with Fatal Injuries: " +
             feature.properties.FatalInjuries +
-            "<br /><br />Commercial Vehicle Accidents with Serious Injuries: " +
+            "<br /><br />2022 Commercial Vehicle Accidents with Serious Injuries: " +
             feature.properties.SeriousInjuries
         );
       },
