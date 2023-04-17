@@ -1,5 +1,3 @@
-import numpy as np
-
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -8,26 +6,15 @@ import datetime as dt
 from flask import Flask, jsonify
 import pandas as pd
 from flask_cors import CORS
-
-
-
+import json
 
 #################################################
 # Database Setup
 #################################################
-# engine = create_engine("sqlite:///data.sqlite")
-
-# #reflect an existing database into a new model
-# Base = automap_base()
-# # reflect the tables
-# Base.prepare(autoload_with=engine)
-
-# # Save reference to the table
-# measurement = Base.classes.measurement
-# station = Base.classes.station
 import sqlite3
 conn = sqlite3.connect('crash_data.db',check_same_thread=False)
 c = conn.cursor()
+
 #################################################
 # Flask Setup
 #################################################
@@ -38,21 +25,17 @@ CORS(app)
 #################################################
 # Flask Routes
 #################################################
-
-
-
-
-@app.route("/") # Change names later 
+@app.route("/") 
 def welcome():
     """List all available api routes."""
     return (
-        # f"Available Routes:<br/>"
-        # f"/api/v1.0/precipitation<br/>"
-        # f"/api/v1.0/station<br/>"
-        f"/api/data"
-        # f"/api/v1.0/tobs"
-
-
+        f"/api/data<br/>"
+        f"/api/county_crash_data<br/>"
+        f"/api/geo_crash_data<br/>"
+        f"/api/geo_boundary_data<br/>"
+        f"/api/restraint_injuries<br/>"
+        f"/api/crash_timeofday<br/>"
+        f"/api/crash_dayofweek"
     )
 
 @app.route("/api/data")
@@ -63,83 +46,57 @@ def jsonified():
 
     return jsonify(crashes)
 
-# # @app.route("/api/data")
-# # def names():
-# #     # Create our session (link) from Python to the DB
-# #     session = Session(engine)
+@app.route("/api/county_crash_data")
+def county_crash_data():
+    crash_data = c.execute('''SELECT `County`, 
+                                     COUNT(CASE WHEN `Crash Severity` = 'K - FATAL INJURY' THEN 1 END) as FatalCrashes,
+                                     COUNT(CASE WHEN `Crash Severity` = 'A - SUSPECTED SERIOUS INJURY' THEN 1 END) as SeriousInjuryCrashes,
+                                     `Latitude`,
+                                     `Longitude`
+                              FROM (SELECT DISTINCT `Crash ID`, `County`, `Crash Severity`, `Latitude`, `Longitude` FROM crashes) AS distinct_crashes
+                              GROUP BY `County`''').fetchall()
+    column_names = [description[0] for description in c.description]
+    crashes = [dict(zip(column_names, row)) for row in crash_data]
 
-# #     """Return a list of all passenger names"""
-# #     # Query all passengers
-# #     results = session.query(Passenger.name).all()
+    return jsonify(crashes)
 
-# #     session.close()
+@app.route('/api/geo_crash_data')
+def geo_crash_data():
+    geo_crash_data = pd.read_sql('SELECT * FROM geocrashes', conn)
+    geo_crash_data['geometry'] = geo_crash_data['geometry'].apply(lambda x: json.loads(x))
+    return geo_crash_data.to_json(orient='records')
 
-# #     # Convert list of tuples into normal list
-# #     all_names = list(np.ravel(results))
+@app.route('/api/geo_boundary_data')
+def geo_boundary_data():
+    geo_boundary_data = pd.read_sql('SELECT * FROM geoboundaries', conn)
+    geo_boundary_data['geometry'] = geo_boundary_data['geometry'].apply(lambda x: json.loads(x))
+    return geo_boundary_data.to_json(orient='records')
 
-# #     return jsonify(all_names)
+@app.route("/api/crash_dayofweek")
+def crash_dayofweek():
+    crash_data = c.execute('''SELECT DISTINCT `Crash ID`, `Crash Severity`, `Day of Week` FROM crashes''').fetchall()
+    column_names = [description[0] for description in c.description]
+    crashes = [dict(zip(column_names, row)) for row in crash_data]
 
-# # app.route("/api/data")
-# # def jsonified():
-# #     return jsonify(crashes)
+    return jsonify(crashes)
 
-# @app.route("/api/v1.0/precipitation")
-# def get_precipiation():
-#     # Create our session (link) from Python to the DB
-#     # session = Session(engine)
+@app.route("/api/crash_timeofday")
+def crash_timeofday():
+    crash_data = c.execute('''SELECT DISTINCT `Crash ID`, `Crash Severity`, `Crash Time` FROM crashes''').fetchall()
+    column_names = [description[0] for description in c.description]
+    crashes = [dict(zip(column_names, row)) for row in crash_data]
 
-#     prcp_results=c.execute('''SELECT `Crash Severity`,`Day of Week` FROM crashes''').fetchall() # [(1, 'pokerkid'), (2, 'crazyken')]
-#     year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
-  
+    return jsonify(crashes)
 
-#     # prcp_results=session.query(measurement.date, measurement.prcp).filter(measurement.date>= year_ago).all()
-#   # Save the query results as a Pandas DataFrame and set the index to the date column
-#   #take to html and pass through java
-#     prcp_df = pd.DataFrame(prcp_results,columns=['Crash Severity','Day of Week'])
+@app.route("/api/restraint_injuries")
+def restraint_injuries():
+    crash_data = c.execute('''SELECT `Crash ID`, `Person Injury Severity`, `Person Restraint Used` FROM crashes''').fetchall()
+    column_names = [description[0] for description in c.description]
+    crashes = [dict(zip(column_names, row)) for row in crash_data]
 
-
-
-
-#     return prcp_df.to_dict()
-
-
-# @app.route("/api/v1.0/station")
-# def get_stations():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-
-#     """Return a list of passenger data including the name, age, and sex of each passenger"""
-#     # Query station list 
-#     results = results = session.query(station).all()
-#     results = [r.name for r in results]
-#     session.close()
-#     return {"stations": list(results)}
-
-# @app.route("/api/v1.0/tobs")
-# def get_tobs():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-
-#     year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
-
-    
-#     # Query station list and create dataframe
-#     most_active_station =session.query(measurement.station,func.count(measurement.station)).group_by(measurement.station).order_by(func.count(measurement.station).desc()).all()[0][0]
-
-#     most_active_results=session.query(measurement.date,measurement.tobs).filter(measurement.date>= year_ago).filter(measurement.station == most_active_station).all()
-
-#     most_active_df = pd.DataFrame(most_active_results,columns=['date','tobs']).set_index('date')
-
-#     # create dict for tobs 
-#     most_active_df=most_active_df.sort_index()
-
-#     return most_active_df.to_dict()['tobs']
-
-
- 
-
-    
-
+    return jsonify(crashes)
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # Close the cursor after all routes have been executed
+    c.close()

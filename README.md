@@ -24,10 +24,10 @@ Requirements:
 * [ ] Your final visualization should ideally include at least three views.
 
   Table - Top 10 Contributing Factors
-  Stacked Horizontal - Restraint type by Injury
-  [Doughnut](https://www.chartjs.org/docs/latest/charts/doughnut.html) - Time of Day (Chart.js)
-  Horizontal Bar Graph - Days of Week
-  Map - choropleth, markers/bubble
+  Stacked Horizontal - Restraint type by Injury DHAWN
+  [Doughnut](https://www.chartjs.org/docs/latest/charts/doughnut.html) - Time of Day (Chart.js) KAYLA
+  Horizontal Bar Graph - Days of Week KAREN
+  Map - choropleth, markers/bubble LISA
 
 ---
 
@@ -43,17 +43,19 @@ Requirements:
 * [X] ~~SQLite Database~~
 * [X] ~~Demo Visualizations~~
 * [X] ~~Create Python Flask-Powered API~~
-* [ ] HTML/CSS JavaScript with Interactive Visualizations (4/13-4/17)
+* [ ] HTML/CSS JavaScript with Interactive Visualizations (4/17)
 * [ ] Testing (4/17-4/19)
 * [ ] Slide Deck, ReadMe Documentation, Practice (4/19)
 
 ---
 
-#### **Focused Industry**: Insurance/Trucking
+**Focused Industry**: Insurance/Trucking
 
 The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, restraint types used, time of day, day of the week, as well as other factors.
 
-### Data:
+`<png>` screengrab picture of dashboard
+
+## Data
 
 [CRIS Query]([https://cris.dot.state.tx.us/public/Query/app/home](https://cris.dot.state.tx.us/public/Query/app/home)): 2022 Fatal & Serious Injury Crashes involving Commercial Vehicles in Texas
 
@@ -92,22 +94,26 @@ CRIS Query Filters:
 * Matplotlib
 * DateTime
 * Flask
+* pandas_geojson
+* geopandas
 
----
+## Usage
+
+*Explaination of starting flask server, web and use interactive features?*
 
 ## Back End
 
 #### Extraction
 
-Our crash data set comes from using the Texas Department of Transportation [CRIS Query]([https://cris.dot.state.tx.us/public/Query/app/home](https://cris.dot.state.tx.us/public/Query/app/home)) where we were able to create a csv file for Fatal and Serious Injury crashes in Texas involving commercial vehicles in 2022, which we filtered further to include the following columns (Crash ID, City, Commercial Motor Vehicle Flag, County, Crash Date, Crash Severity, Crash Time, Day of Week, Latitude, Longitude, School Bus Flag, Speed Limit, CMV Vehicle Type, Contributing Factor 1, Possible Vehicle Defect 1, Vehicle Defect 1, Person Age, Person Gender, Person Injury Severity, Person Restraint Used, and Person Type). We also extracted the [Texas Counties Centroid Map](https://data.texas.gov/widgets/ups3-9e8m?mobile_redirect=true) csv file to get coordinates by county due to some missing values in the original dataset.
+Our crash data set comes from using the Texas Department of Transportation [CRIS Query]([https://cris.dot.state.tx.us/public/Query/app/home](https://cris.dot.state.tx.us/public/Query/app/home)) where we were able to create a csv file for Fatal and Serious Injury crashes in Texas involving commercial vehicles in 2022, which we filtered further to include the following columns (Crash ID, City, Commercial Motor Vehicle Flag, County, Crash Date, Crash Severity, Crash Time, Day of Week, Latitude, Longitude, School Bus Flag, Speed Limit, CMV Vehicle Type, Contributing Factor 1, Possible Vehicle Defect 1, Vehicle Defect 1, Person Age, Person Gender, Person Injury Severity, Person Restraint Used, and Person Type). We also extracted the [Texas Counties Centroid Map](https://data.texas.gov/widgets/ups3-9e8m?mobile_redirect=true) csv file from data.texas.gov to get coordinates by county due to some missing values in the original dataset.
 
 ### Transformation
 
-We merged the crash data and the county data together in order to fill in the missing coordinates where needed, and dropping the remaining county data. We filled in the missing values for the other columns and formatted the data types. We exported this file as `<cleaned_crash_data.csv>`.
+We merged the crash data and the county data together in order to fill in the missing coordinates where needed, and dropping the remaining county data. We filled in the missing values for the other columns and formatted the data types. We exported this file as `<cleaned_crash_data.csv>` and as `<cleaned_crash_data.geojson>`.
 
 ### Loading
 
-We then loaded this data into a SQLite database `<crash_data>` using SQLAlchemy, storing the data in a table called `<crashes>`. We also completed some queries to explore the dataset and get an idea of possible visualizations.
+We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`, the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`. We also completed some queries on the crashes table to explore the dataset and get an idea of possible visualizations.
 
 ### Flask API
 
@@ -118,3 +124,7 @@ A Python Flask API was developed to create a data source for the front-end visua
 ### JavaScript HTML/CSS
 
 *We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data... including a drop-down menu to select X, the ability to filter based on some values ()crash severity, speed limit, day of week), and a map zoom feature*
+
+![1681689613860](image/README/1681689613860.png)
+
+![1681689655357](image/README/1681689655357.png)
