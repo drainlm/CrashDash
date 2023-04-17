@@ -49,11 +49,11 @@ Requirements:
 
 ---
 
+![1681693515842](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/lisam/OneDrive/Desktop/CrashDash/image/README/1681693515842.png)
+
 **Focused Industry**: Insurance/Trucking
 
-The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, restraint types used, time of day, day of the week, as well as other factors.
-
-`<png>` screengrab picture of dashboard
+The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, restraint types used, time of day, and day of the week.
 
 ## Data
 
@@ -96,10 +96,11 @@ CRIS Query Filters:
 * Flask
 * pandas_geojson
 * geopandas
+* json
 
 ## Usage
 
-*Explaination of starting flask server, web and use interactive features?*
+Download repo .zip file. Open the backend folder, right click and then select Show More Options and then click Git Bash Here. Type in `<python app.py>` to run the Flask API. Navigate to your local host (in Git Bash you can copy the http:// that is shown after "Running on"). Once you verify that the routes are working there, open VS Code and right click on index.html (located in the frontend folder) and select Show in Browser. You should now be able to navigate the Crash Dash.
 
 ## Back End
 
@@ -123,8 +124,10 @@ A Python Flask API was developed to create a data source for the front-end visua
 
 ### JavaScript HTML/CSS
 
-*We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. User-driver interactions allows for further exploration of the data... including a drop-down menu to select X, the ability to filter based on some values ()crash severity, speed limit, day of week), and a map zoom feature*
+We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. 
 
-![1681689613860](image/README/1681689613860.png)
+We have a map of Texas with a choropleth layer to visualize Fatal/Serious Injury Crashes by county with a popup to display the number of Fatal and Serious Injury crashes by county. This map also has a marker layer to display each crash in the dataset with a popup providing additional details about the crash. The user is able to filter the map layers and zoom in and out.
 
-![1681689655357](image/README/1681689655357.png)
+![1681693598341](image/README/1681693598341.png)
+
+![1681693998703](image/README/1681693998703.png)
