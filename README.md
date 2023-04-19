@@ -2,105 +2,42 @@
 
 Group members: Lisa Drain, Dhawn Alexander, Karen Fuentes, Kayla Bailey
 
-Requirements:
-
-* [ ] Your visualization must include:
-
-* ~~Python Flask-powered API~~
-* HTML/CSS JavaScript
-* ~~and at least one database (SQLite)~~
-
-* [X] Your project should fall into on of the following three tracks:
-
-* A combination of web scraping and Leaflet or Plotly
-* **A dashboard page with multiple charts that update from the same data**
-* A server that performs multiple manipulations on data in a database prior to visualization ( **must be approved** )
-
-* [X] Your project should include at least one JS library that we did not cover.
-
-  * [Chart.js](https://www.chartjs.org/docs/latest/charts/doughnut.html)
-* [X] Your project must be powered by a dataset with at least 100 records.( if using 2022 set)
-* [ ] Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).
-* [ ] Your final visualization should ideally include at least three views.
-
-  Table - Top 10 Contributing Factors
-  Stacked Horizontal - Restraint type by Injury DHAWN
-  [Doughnut](https://www.chartjs.org/docs/latest/charts/doughnut.html) - Time of Day (Chart.js) KAYLA
-  Horizontal Bar Graph - Days of Week KAREN
-  Map - choropleth, markers/bubble LISA
-
 ---
-
-**Project Ideas Sketch**
-
-![1681369651673](image/README/1681369651673.png)
-
----
-
-### Tasks
-
-* [X] ~~Load csv file and clean data together~~
-* [X] ~~SQLite Database~~
-* [X] ~~Demo Visualizations~~
-* [X] ~~Create Python Flask-Powered API~~
-* [ ] HTML/CSS JavaScript with Interactive Visualizations (4/17)
-* [ ] Testing (4/17-4/19)
-* [ ] Slide Deck, ReadMe Documentation, Practice (4/19)
-
----
-
-![1681693515842](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/lisam/OneDrive/Desktop/CrashDash/image/README/1681693515842.png)
 
 **Focused Industry**: Insurance/Trucking
 
 The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, restraint types used, time of day, and day of the week.
 
+---
+
+![1681877973485](image/README/1681877973485.png)
+
 ## Data
 
-[CRIS Query]([https://cris.dot.state.tx.us/public/Query/app/home](https://cris.dot.state.tx.us/public/Query/app/home)): 2022 Fatal & Serious Injury Crashes involving Commercial Vehicles in Texas
+[CRIS Query]([https://cris.dot.state.tx.us/public/Query/app/home](https://cris.dot.state.tx.us/public/Query/app/home))(.csv): 2022 Fatal & Serious Injury Crashes involving Commercial Vehicles in Texas
 
-[Texas Counties Centroid Map](https://data.texas.gov/widgets/ups3-9e8m?mobile_redirect=true): Secondary dataset to fill in missing coordinates by county
+[Texas Counties Centroid Map](https://data.texas.gov/widgets/ups3-9e8m?mobile_redirect=true)(.csv): Secondary dataset to fill in missing coordinates by county
 
-CRIS Query Filters:
+[Texas County Boundaries](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90) (.geojson): Polygon layer of the 254 Texas counties.
 
-* Crash ID
-* City
-* Commercial Motor Vehicle Flag
-* County
-* Crash Date
-* Crash Severity
-* Crash Time
-* Day of Week
-* Latitude
-* Longitude
-* School Bus Flag
-* Speed Limit
-* CMV Vehicle Type
-* Contributing Factor 1
-* Possible Vehicle Defect 1
-* Vehicle Defect 1
-* Person Age
-* Person Gender
-* Person Injury Severity
-* Person Restraint Used
-* Person Type
+# CRIS Query Filters:
+
+|  Crash ID  |      City      |          Commercial Motor Vehicle Flag          |       Person Age       |
+| :---------: | :------------: | :---------------------------------------------: | :--------------------: |
+| Crash Date |     County     |                 School Bus Flag                 |     Person Gender     |
+| Crash Time |    Latitude    |                CMV Vehicle Type                | Person Injury Severity |
+| Day of Week |   Longitude   |              Contributing Factor 1              | Person Restraint Used |
+| Speed Limit | Crash Severity | Vehicle Defect 1<br />Possible Vehicle Defect 1 |      Person Type      |
 
 ## Requirements
 
-* Pandas
-* Numpy
-* SQL Alchemy
-* SQLite
-* Matplotlib
-* DateTime
-* Flask
-* pandas_geojson
-* geopandas
-* json
+| Pandas | SQLAlchemy | Matplotlib | Flask | pandas_geojson |
+| ------ | ---------- | ---------- | ----- | -------------- |
+| Numpy  | SQLite     | DateTime   | json  | geopandas      |
 
 ## Usage
 
-Download repo .zip file. Open the backend folder, right click and then select Show More Options and then click Git Bash Here. Type in `<python app.py>` to run the Flask API. Navigate to your local host (in Git Bash you can copy the http:// that is shown after "Running on"). Once you verify that the routes are working there, open VS Code and right click on index.html (located in the frontend folder) and select Show in Browser. You should now be able to navigate the Crash Dash.
+Download this repository .zip file. Open the backend folder, right click and then select Show More Options and then click Git Bash Here. Type in `'python app.py>'` to run the Flask API. Navigate to your local host (in Git Bash you can copy the http:// that is shown after "Running on"). Once you verify that the routes are working there, open VS Code and right click on index.html (located in the frontend folder) and select Show in Browser. You should now be able to navigate the CrashDash.
 
 ## Back End
 
@@ -112,22 +49,62 @@ Our crash data set comes from using the Texas Department of Transportation [CRIS
 
 We merged the crash data and the county data together in order to fill in the missing coordinates where needed, and dropping the remaining county data. We filled in the missing values for the other columns and formatted the data types. We exported this file as `<cleaned_crash_data.csv>` and as `<cleaned_crash_data.geojson>`.
 
-### Loading
+### Loading and Flask API
 
-We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`, the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`. We also completed some queries on the crashes table to explore the dataset and get an idea of possible visualizations.
+We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`. We also completed some queries on the `<crashes>` table to explore the dataset and get an idea of possible visualizations. We also stroed the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`.
 
 ### Flask API
 
 A Python Flask API was developed to create a data source for the front-end visualizations.
 
+Note: We were unable to successfully host the geoJson tables in the API, so these .geojson files are stored locally to create the Map. However, the other visualizations do utilize the API `<crashes>` table.
+
 ## Front End
 
 ### JavaScript HTML/CSS
 
-We created a JavaScript application utilizing Leaflet.js, D3.js, Plotly,js, Chart.js to create visualizations. 
+We created a JavaScript application for user interactivity utilizing Leaflet.js, D3.js, DataTables, and Chart.js to create the visualizations. We also created an accompanying .html to define the dashboard and .css files to manipulate the appearance.
 
-We have a map of Texas with a choropleth layer to visualize Fatal/Serious Injury Crashes by county with a popup to display the number of Fatal and Serious Injury crashes by county. This map also has a marker layer to display each crash in the dataset with a popup providing additional details about the crash. The user is able to filter the map layers and zoom in and out.
+**Leaflet Map**: The map displayed has multiple layers for the user to navigate. `<Accidents by County>` displays a choropleth map indicatinig the number of fatal/serious injury crashes, additionally each county has a pop-up to display the number Fatal and Serious Injury crashes in that county. `<Fatal/Serious Injury Crash Markers>` allows the user to see grouped markers for crashes and individual markers can be selected to see additional crash information. `<Speed Limit: ranges>` allows user to visually see which counties had crashes where the speed limit fell within the specified range (limitation: upon selection, only one crash marker is displayed).
 
-![1681693598341](image/README/1681693598341.png)
+`<Accidents by County>`
 
-![1681693998703](image/README/1681693998703.png)
+![1681790888751](image/README/1681790888751.png)
+
+`<Fatal/Serious Injury Crash Markers>`
+
+![1681790923336](image/README/1681790923336.png)
+
+`<Speed Limit: ranges>`
+
+![1681790958842](image/README/1681790958842.png)
+
+<a href="https://www.flaticon.com/free-icons/accident" title="accident icons">Accident icons created by M Karruly - Flaticon</a>
+
+---
+
+**Contributing Factors Table (DataTables)**:
+
+Using DataTables, this presents the first Contributing Factor listed in each crash report, along with the number of times the factor was listed in fatal or serious injury crashes. Users can sort and search through the data.
+
+![1681796261899](image/README/1681796261899.png)
+
+![1681796365506](image/README/1681796365506.png)
+
+---
+
+**Time Doughnut (Chart.js)**:
+
+This visualizes the number of crashes by time of day.
+
+---
+
+Day of Week Horizontal Bar Graph (Plotly):
+
+This visualizes the number of crashes by day of the week and crash severity. 
+
+---
+
+Restraint Type Stacked Horizontal Bar Graph (Plotly?):
+
+This visualizes the restraint type used compared to the person injury severity.
