@@ -6,11 +6,11 @@ Group members: Lisa Drain, Dhawn Alexander, Karen Fuentes, Kayla Bailey
 
 **Focused Industry**: Insurance/Trucking
 
-The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, restraint types used, time of day, and day of the week.
+The aim of our project is to uncover patterns in commercial vehicle related accidents in Texas resulting in fatality or serious injury. We'll allow users to examine relationships between location, factors contributing to crashes, time of day, and day of the week.
 
 ---
 
-![1681877973485](image/README/1681877973485.png)
+![1681962454825](image/README/1681962454825.png)
 
 ## Data
 
@@ -49,7 +49,7 @@ Our crash data set comes from using the Texas Department of Transportation [CRIS
 
 We merged the crash data and the county data together in order to fill in the missing coordinates where needed, and dropping the remaining county data. We filled in the missing values for the other columns and formatted the data types. We exported this file as `<cleaned_crash_data.csv>` and as `<cleaned_crash_data.geojson>`.
 
-### Loading and Flask API
+### Loading
 
 We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`. We also completed some queries on the `<crashes>` table to explore the dataset and get an idea of possible visualizations. We also stroed the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`.
 
@@ -97,14 +97,12 @@ Using DataTables, this presents the first Contributing Factor listed in each cra
 
 This visualizes the number of crashes by time of day.
 
+![1681962494759](image/README/1681962494759.png)
+
 ---
 
 Day of Week Horizontal Bar Graph (Plotly):
 
-This visualizes the number of crashes by day of the week and crash severity. 
+This visualizes the number of crashes by day of the week.
 
----
-
-Restraint Type Stacked Horizontal Bar Graph (Plotly?):
-
-This visualizes the restraint type used compared to the person injury severity.
+![1681962484746](image/README/1681962484746.png)
