@@ -326,27 +326,21 @@ createDayChart();
 // Crashes by Time of Day - Doughnut (Chart.js)
 const crashTimeOfDayUrl = "http://127.0.0.1:5000/api/crash_timeofday";
 
-
-
 function getCrashTimeOfDay() {
     const data = d3.json(crashTimeOfDayUrl).then((data) => {
         console.log(data);
     return data});
-    
   
   const printdata = async () => {
     const a = await data;
     let timecrash= a;
     console.log(timecrash);
 
-
     function extractHour(str) {
         var hour = Number(str.substring(0, 2));
         return hour;
-
-
-    
     }
+
 let Morning=[];
 let Afternoon =[];
 let Evening = [];
@@ -370,7 +364,6 @@ for(let i =0; i< a.length;i++){
      
  }   else {Night.push(0)};
     
-
 
 // console.log(hour);
 }
