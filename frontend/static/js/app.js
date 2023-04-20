@@ -289,6 +289,103 @@ displayContributingFactors();
 
 // Crashed by Day of Week - Bar Graph (Plotly)
 
-// Crashes by Time of Day - Doughnut (Chart.js)
+// Fetch data from /api/crash_dayofweek
+function createDayChart() {
+  fetch('http://127.0.0.1:5000/api/crash_dayofweek')
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data)
 
-// Injuries By Restraint Type - Bar Graph (Plotly?)
+      // Array with names of weekdays
+      const daysOfWeek = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
+
+      // Calculate totalCrashesDayCounts
+      const totalCrashesDayCounts = daysOfWeek.map(day => data.filter(item => item[2] === day).length);
+
+      // Trace
+      const totalCrashesTrace = { 
+        x: totalCrashesDayCounts,
+        y: daysOfWeek,
+        name: 'Total Crashes',
+        type: 'bar',
+        orientation: 'h',
+        marker: { color: 'rgb(255, 99, 132)' },
+      };
+
+const config = { responsive: true };
+
+Plotly.newPlot('daychart', [totalCrashesTrace], config);
+});
+}
+
+createDayChart();
+
+
+// Crashes by Time of Day - Doughnut (Chart.js)
+const crashTimeOfDayUrl = "http://127.0.0.1:5000/api/crash_timeofday";
+
+
+
+function getCrashTimeOfDay() {
+    const data = d3.json(crashTimeOfDayUrl).then((data) => {
+        console.log(data);
+    return data});
+    
+  
+  const printdata = async () => {
+    const a = await data;
+    let timecrash= a;
+    console.log(timecrash);
+
+
+    function extractHour(str) {
+        var hour = Number(str.substring(0, 2));
+        return hour;
+
+
+    
+    }
+let Morning=[];
+let Afternoon =[];
+let Evening = [];
+let Night=[];
+let crashtimes=[];
+    
+ console.log("Hello World")   
+for(let i =0; i< a.length;i++){
+    //variable to hold current crash time in loop
+    let CrashTime =a[i]["Crash Time"];
+    hour=extractHour(CrashTime);
+    // determine if hour is between 8 and 17
+    if (hour >= 06 && hour <= 12) {
+        Morning.push(0);
+
+ }    else if (hour >= 13 && hour <= 18) {
+     Afternoon.push(0);
+
+    // }    else if (hour >= 19 && hour <= 00) {
+    //     Evening.push(0);
+     
+ }   else {Night.push(0)};
+    
+
+
+// console.log(hour);
+}
+console.log("---------");
+console.log(`${Morning.length}`);
+console.log(`${Afternoon.length}`);
+console.log(`${Evening.length}`);
+console.log(`${Night.length}`);
+
+console.log("---------");
+  };
+  printdata(data);
+
+
+}
+
+let crashtimeofday=getCrashTimeOfDay();
+console.log(crashtimeofday);
