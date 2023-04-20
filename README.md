@@ -51,7 +51,7 @@ We merged the crash data and the county data together in order to fill in the mi
 
 ### Loading
 
-We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`. We also completed some queries on the `<crashes>` table to explore the dataset and get an idea of possible visualizations. We also stroed the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`.
+We then loaded the transformed data (as well as the [Texas County Boundaries ](https://gis-txdot.opendata.arcgis.com/datasets/9b2eb7d232584572ad53bad41c76b04d_0/explore?location=30.911526%2C-100.049428%2C6.90)geojson file from Texas Department of Transportation) into a SQLite database `<crash_data>` using SQLAlchemy, storing the clean_crash_data in a table called `<crashes>`. We also completed some queries on the `<crashes>` table to explore the dataset and get an idea of possible visualizations. We also stored the cleaned_crash_data.geojson in a table called `<geocrashes>`, and the Texas_County_Boundaries.geojson to a table called `<geoboundaries>`.
 
 ### Flask API
 
@@ -95,7 +95,7 @@ Using DataTables, this presents the first Contributing Factor listed in each cra
 
 **Time Doughnut (Chart.js)**:
 
-This visualizes the number of crashes by time of day.
+This visualizes the number of crashes by time of day (Morning: 06:00-11:59, Afternoon: 12:00-17:59, Evening: 18:00-23:59, Night: 00:00-05:59).
 
 ![1681965334452](image/README/1681965334452.png)
 
