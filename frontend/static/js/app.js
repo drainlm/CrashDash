@@ -173,7 +173,7 @@ d3.json(geoData).then(function (data) {
       valueProperty: "TotalInjuries",
 
       // Set the color scale.
-      scale: ["#ffffff", "#ff0000"],
+      scale: ["#ffffff", "#ff6361"],
       // The number of breaks in the step range
       steps: 10,
 
@@ -311,7 +311,7 @@ function createDayChart() {
         name: 'Total Crashes',
         type: 'bar',
         orientation: 'h',
-        marker: { color: 'rgb(255, 99, 132)' },
+        marker: { color: '#58508d' },
       };
 
 const config = { responsive: true };
@@ -358,15 +358,15 @@ for(let i =0; i< a.length;i++){
     //variable to hold current crash time in loop
     let CrashTime =a[i]["Crash Time"];
     hour=extractHour(CrashTime);
-    // determine if hour is between 8 and 17
-    if (hour >= 06 && hour <= 12) {
+    // determine what time period and push times to that array
+    if (hour >= 06 && hour <= 11) {
         Morning.push(0);
 
- }    else if (hour >= 13 && hour <= 18) {
+ }    else if (hour >= 12 && hour <= 17) {
      Afternoon.push(0);
 
-    // }    else if (hour >= 19 && hour <= 00) {
-    //     Evening.push(0);
+    }    else if (hour >= 18 && hour <= 23) {
+        Evening.push(0);
      
  }   else {Night.push(0)};
     

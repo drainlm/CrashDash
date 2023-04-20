@@ -10,7 +10,7 @@ The aim of our project is to uncover patterns in commercial vehicle related acci
 
 ---
 
-![1681962454825](image/README/1681962454825.png)
+![1681965289564](image/README/1681965289564.png)
 
 ## Data
 
@@ -97,7 +97,7 @@ Using DataTables, this presents the first Contributing Factor listed in each cra
 
 This visualizes the number of crashes by time of day.
 
-![1681962494759](image/README/1681962494759.png)
+![1681965334452](image/README/1681965334452.png)
 
 ---
 
@@ -105,4 +105,4 @@ Day of Week Horizontal Bar Graph (Plotly):
 
 This visualizes the number of crashes by day of the week.
 
-![1681962484746](image/README/1681962484746.png)
+![1681965387118](image/README/1681965387118.png)

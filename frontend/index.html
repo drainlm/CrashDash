@@ -88,22 +88,23 @@
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
         // Generate random crash frequency values
-        const morningCrashes = 691;
-        const afternoonCrashes = 598;
-        const nightCrashes = 641;
+        const morningCrashes = 594;
+        const afternoonCrashes = 618;
+        const eveningCrashes = 352;
+        const nightCrashes = 366;
 
         // Set the colors for each category
-        const colors = ['rgb(54, 162, 235)', 'rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(75, 192, 192)'];
+        const colors = ['#E5DE44', '#EF810E', '#053752', '#001A26'];
 
         // Create the doughnut chart
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ['Morning', 'Afternoon', 'Night'],
+            labels: ['Morning', 'Afternoon', 'Evening', 'Night'],
             datasets: [{
               label: 'Crash Frequency by Time of Day',
-              data: [morningCrashes, afternoonCrashes, nightCrashes],
+              data: [morningCrashes, afternoonCrashes, eveningCrashes, nightCrashes],
               backgroundColor: colors,
               borderWidth: 5
             }]
